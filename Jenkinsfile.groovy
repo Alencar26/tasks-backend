@@ -24,5 +24,16 @@ pipeline {
           }
         }
       }
+      stage('Build Frontend') {
+          dir('frontend') {
+              git branch: 'master', url: 'https://github.com/Alencar26/tasks-frontend'
+              sh 'mvn clean package -DskipTests=true'
+            }
+        }
+        stage('Deploy Frontend') {
+            dir('frontend') {
+                deploy adapters: [tomcat8(credentialsId: 'TomCatLogin', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks', war: 'target/tasks.war'
+              }
+          }
     }
   }
