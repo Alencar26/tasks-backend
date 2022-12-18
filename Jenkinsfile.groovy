@@ -31,7 +31,13 @@ pipeline {
               sh 'mvn clean package -DskipTests=true'
           }
         }
-
       }
+      stage('Deploy Frontend') {
+          steps {
+              dir('frontend') {
+                deploy adapters: [tomcat8(credentialsId: 'TomCatLogin', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks', war: 'target/tasks.war'
+                }
+            }
+        }
     }
   }
