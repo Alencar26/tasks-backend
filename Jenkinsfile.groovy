@@ -25,10 +25,13 @@ pipeline {
         }
       }
       stage('Build Frontend') {
-          dir('frontend') {
+        steps {
+           dir('frontend') {
               git branch: 'master', url: 'https://github.com/Alencar26/tasks-frontend'
               sh 'mvn clean package -DskipTests=true'
-            }
+          }
         }
+
+      }
     }
   }
