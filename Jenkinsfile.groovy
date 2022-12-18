@@ -17,10 +17,12 @@ pipeline {
             }
         }
       stage('API Tests') {
-          steps {
+         steps {
+          dir('api-test') {
             git branch: 'main', url: 'https://github.com/Alencar26/tasks-api-test'
-            sh 'mvn test'
-            }
+            sh 'mvn test' 
+          }
         }
+      }
     }
   }
