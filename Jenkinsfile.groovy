@@ -39,5 +39,13 @@ pipeline {
                 }
             }
         }
+      stage('Functional Tests') {
+         steps {
+          dir('functional-test') {
+            git branch: 'main', url: 'https://github.com/Alencar26/tasks-functionar-test'
+            sh 'mvn test' 
+          }
+        }
+      }
     }
   }
